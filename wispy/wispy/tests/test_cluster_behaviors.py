@@ -1,8 +1,7 @@
 from django_webtest import WebTest
+from clusters.models import VirtualEnvironment
 
 import sure
-
-from clusters.tests.factories import VirtualEnvironmentFactory
 
 class TestHomePageBehavior(WebTest):
 
@@ -19,10 +18,10 @@ class TestHomePageBehavior(WebTest):
         """As a Capacity Manager ISBAT view virtual environments
         """
 
-        "Given three Virtual Environments exist"
-        ve1 = VirtualEnvironmentFactory.create()
-        ve2 = VirtualEnvironmentFactory.create()
-        ve3 = VirtualEnvironmentFactory.create()
+        "three Virtual Environments exist"
+        ve1 = VirtualEnvironment.objects.create(name="ve1")
+        ve2 = VirtualEnvironment.objects.create(name="ve2")
+        ve3 = VirtualEnvironment.objects.create(name="ve3")
 
         "When I visit the home page"
 
