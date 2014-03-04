@@ -7,10 +7,16 @@
     <link rel="stylesheet" href="">
 </head>
 <body>
-    <ul>
+    <table>
+        <caption>Virtual Environments</caption>
+        <thead>
+            <tr><th>Name</th></tr>
+        </thead>
+        <tbody>
         {% for virtual_environment in virtual_environments %}
-            <ul>{{ virtual_environment.name }}</ul>
+            <tr><td>{{ virtual_environment.name }}</td></tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
 </body>
 </html>
