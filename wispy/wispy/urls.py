@@ -10,4 +10,8 @@ urlpatterns = patterns('',
 
   url(r'^admin/', include(admin.site.urls)),
   url(r'^$', 'clusters.views.home', name='home'),
+  url(r'^virtual_environments/(\d+)/$',
+       'clusters.views.virtual_environment_detail',
+       name='virtual_environment_detail'
+  )
 )
