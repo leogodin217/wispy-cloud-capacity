@@ -9,18 +9,7 @@ class TestHomePageBehavior(WebTest):
   """
 
   def setUp(self):
-      self.ve1 = VirtualEnvironment.objects.create(
-        name="ve1",
-        market="market1",
-        site="site1",
-        segment="segment1",
-        application_layer="application layer 1",
-        pipe="pipe1",
-        notes="notes1",
-        status="status1"
-      )
-      self.ve2 = VirtualEnvironment.objects.create(name="ve2")
-      self.ve3 = VirtualEnvironment.objects.create(name="ve3")
+    pass
 
   def tearDown(self):
     pass
@@ -37,7 +26,10 @@ class TestHomePageBehavior(WebTest):
     """As a Capacity Manager ISBAT view virtual environments
     """
 
-    "Given three Virtual Environments exist. Handled in setUp"
+    "Given three Virtual Environments exist."
+    ve1 = VirtualEnvironment.objects.create(name="ve1")
+    ve2 = VirtualEnvironment.objects.create(name="ve2")
+    ve3 = VirtualEnvironment.objects.create(name="ve3")
 
     "When I visit the home page"
 
@@ -46,9 +38,9 @@ class TestHomePageBehavior(WebTest):
     "Then I should see three virtual environments listed"
     fields = ["name", "id"]
 
-    response.mustcontain(self.ve1.name)
-    response.mustcontain(self.ve2.name)
-    response.mustcontain(self.ve3.name)
+    response.mustcontain(ve1.name)
+    response.mustcontain(ve2.name)
+    response.mustcontain(ve3.name)
 
 
 class TestVirtualEnvironmentBehavior(WebTest):
@@ -57,7 +49,7 @@ class TestVirtualEnvironmentBehavior(WebTest):
   """
 
   def setUp(self):
-      self.ve1 = VirtualEnvironment.objects.create(name="ve1")
+    pass
 
   def tearDown(self):
     pass
@@ -67,19 +59,37 @@ class TestVirtualEnvironmentBehavior(WebTest):
     """As a Capacity Manager ISBAT view all data for a Virtual Environment
     """
 
-    "Given a Virtual Environment exists. (Handled in setUp)"
+    "Given a Virtual Environment exists."
+    ve1 = VirtualEnvironment.objects.create(
+        name="ve1",
+        market="market1",
+        site="site1",
+        segment="segment1",
+        application_layer="application layer 1",
+        pipe="pipe1",
+        notes="notes1",
+        status="status1"
+    )
 
     "When I view a Virtual Environment"
-    response = self.app.get('/virtual_environments/1/')
+    virtual_environment_id = ve1.id
+    response = self.app.get('/virtual_environments/%s/' % virtual_environment_id)
 
     "I should see all data for the Virtual Environment"
-    response.mustcontain(self.ve1.name)
-    response.mustcontain(self.ve1.market)
-    response.mustcontain(self.ve1.site)
-    response.mustcontain(self.ve1.segment)
-    response.mustcontain(self.ve1.application_layer)
-    response.mustcontain(self.ve1.pipe)
-    response.mustcontain(self.ve1.notes)
-    response.mustcontain(self.ve1.status)
+    response.mustcontain(ve1.name)
+    response.mustcontain(ve1.market)
+    response.mustcontain(ve1.site)
+    response.mustcontain(ve1.segment)
+    response.mustcontain(ve1.application_layer)
+    response.mustcontain(ve1.pipe)
+    response.mustcontain(ve1.notes)
+    response.mustcontain(ve1.status)
+
+  def test_can_create_virtual_environment(self):
+    """As a Capacity Manager ISBAT create Virtual Environments
+    """
+    pass
+    "Given no Virtual Environments exist"
+
 
 
