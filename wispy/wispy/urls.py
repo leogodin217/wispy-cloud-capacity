@@ -4,14 +4,10 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-  # Examples:
-  # url(r'^$', 'wispy.views.home', name='home'),
-  # url(r'^blog/', include('blog.urls')),
-
-  url(r'^admin/', include(admin.site.urls)),
-  url(r'^$', 'clusters.views.home', name='home'),
-  url(r'^virtual_environments/(\d+)/$',
-       'clusters.views.virtual_environment_detail',
-       name='virtual_environment_detail'
-  )
-)
+                       url(r'^admin/', include(admin.site.urls)),
+                       url(r'^$', 'clusters.views.home', name='home'),
+                       url(r'^virtual_environments/(\d+)/$',
+                           'clusters.views.virtual_environment_detail',
+                           name='virtual_environment_detail'
+                           )
+                       )
