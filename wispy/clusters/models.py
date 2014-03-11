@@ -15,3 +15,11 @@ class VirtualEnvironment(models.Model):
     pipe = models.CharField(max_length=64, default="General")
     notes = models.TextField(default="")
     status = models.CharField(max_length=64, default="Available")
+
+    @property
+    def name(self):
+        return(self.market + ' ' +
+               self.site + ' ' +
+               self.segment + ' ' +
+               self.application_layer + ' ' +
+               self.pipe)
