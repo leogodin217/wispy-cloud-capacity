@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from clusters.models import VirtualEnvironment
+
+
+admin.site.register(VirtualEnvironment)

@@ -5,7 +5,7 @@ import sure
 from factories import VirtualEnvironmentFactory
 
 
-class TestCluster(TestCase):
+class TestVirtualEnvironment(TestCase):
     """Tests cluster functionality
     """
 
