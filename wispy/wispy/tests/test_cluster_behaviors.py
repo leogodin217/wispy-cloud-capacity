@@ -42,6 +42,49 @@ class TestHomePageBehavior(WebTest):
         response.mustcontain(ve3.name)
 
 
+class TestClusterBehavior(WebTest):
+
+    """Tests cluster behavior
+    """
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_can_view_cluster_data(self):
+
+        """As a Capacity Manager ISBAT view all data for a Cluster
+        """
+
+        "Given a Cluster exists"
+        ve1 = VirtualEnvironment.objects.create(
+            name="ve1",
+            market="market1",
+            site="site1",
+            segment="segment1",
+            application_layer="application layer 1",
+            pipe="pipe1",
+            notes="notes1",
+            status="status1"
+        )
+        cluster = ve1.cluster_set.create(
+            name="cluster1",
+            status="closed",
+            notes="These are some notes for the cluster"
+        )
+
+        "When I view the cluster"
+        page = self.app.get('/clusters/%s/' % cluster.id)
+
+        "I should see all data for the cluster"
+        page.mustcontain(cluster.name)
+        page.mustcontain(cluster.status)
+        page.mustcontain(cluster.notes)
+        page.mustcontain(cluster.virtual_environment.name)
+
+
 class TestVirtualEnvironmentBehavior(WebTest):
 
     """Tests Virtual Environment behaviors

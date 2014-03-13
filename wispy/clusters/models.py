@@ -23,3 +23,13 @@ class VirtualEnvironment(models.Model):
                self.segment + ' ' +
                self.application_layer + ' ' +
                self.pipe)
+
+
+class Cluster(models.Model):
+    """Represents a single grouping of hypervisors
+    """
+
+    name = models.CharField(max_length=100, default="cluster1")
+    notes = models.TextField(default="N/A")
+    status = models.CharField(max_length=100, default="Open")
+    virtual_environment = models.ForeignKey(VirtualEnvironment)

@@ -9,5 +9,8 @@ urlpatterns = patterns('',
                        url(r'^virtual_environments/(\d+)/$',
                            'clusters.views.virtual_environment_detail',
                            name='virtual_environment_detail'
-                           )
+                           ),
+                       url(r'^clusters/(\d+)/$',
+                           'clusters.views.cluster_detail',
+                           name='cluster_detail'),
                        )
