@@ -24,6 +24,9 @@ class VirtualEnvironment(models.Model):
                self.application_layer + ' ' +
                self.pipe)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Cluster(models.Model):
     """Represents a single grouping of hypervisors
@@ -33,3 +36,6 @@ class Cluster(models.Model):
     notes = models.TextField(default="N/A")
     status = models.CharField(max_length=100, default="Open")
     virtual_environment = models.ForeignKey(VirtualEnvironment)
+
+    def __unicode__(self):
+        return self.name
