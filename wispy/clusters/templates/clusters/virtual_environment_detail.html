@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <link rel="stylesheet" href="">
-</head>
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
   <h3>{{ virtual_environment.name }}</h3>
   <dl>
     <dt>Market</dt>
@@ -25,5 +17,4 @@
     <dt>Status</dt>
     <dd>{{ virtual_environment.status }}</dd>
   </dl>
-</body>
-</html>
+{% endblock content %}
