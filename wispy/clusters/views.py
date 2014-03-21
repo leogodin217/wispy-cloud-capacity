@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.template import Context
 
 from .models import VirtualEnvironment
 from .models import Cluster
@@ -7,7 +8,38 @@ from .models import Cluster
 
 def home(request):
 
-    context = {"virtual_environments": VirtualEnvironment.objects.all()}
+    virtual_environments_grouped = {}
+
+    markets = VirtualEnvironment.objects.values('market').distinct()
+    markets = [market['market'] for market in markets]
+    # segments = VirtualEnvironment.objects.values(
+    #     'market', 'segment').distinct()
+    for market in markets:
+        virtual_environments_grouped[market] = {}
+        segments = VirtualEnvironment.objects.filter(market=market).values('segment').distinct()
+        segments = [segment['segment'] for segment in segments]
+        for segment in segments:
+            virtual_environments = VirtualEnvironment.objects.filter(market=market, segment=segment).order_by('site')
+            virtual_environments_grouped[market][segment] = virtual_environments
+
+        #virtual_environments = VirtualEnvironment.objects.filter(market=market['market'])
+        # virtual_environments_grouped[market['market']] = VirtualEnvironment.objects.filter(market=market)
+        #virtual_environments_grouped[market['market']] = virtual_environments
+    # for market in markets:
+    #     virtual_environments_grouped[market['market']] = {}
+    #     for segment in segments:
+    #         virtual_environments_grouped[market['market']][segment['segment']]
+    #             = []
+    #         virtual_environments = VirtualEnvironment.objects.filter(
+    #             market=market,
+    #             segment=segment
+    #         )
+    #         virtual_environments_grouped[market][segment].append(
+    #             virtual_environments)
+    context = Context(
+        {"virtual_environments": virtual_environments_grouped,
+         "markets": markets}
+    )
     return render(request, 'clusters/home.html', context)
 
 

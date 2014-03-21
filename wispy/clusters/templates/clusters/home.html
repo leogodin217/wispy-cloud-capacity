@@ -6,8 +6,18 @@
       <tr><th>Name</th></tr>
     </thead>
     <tbody>
-    {% for virtual_environment in virtual_environments %}
-      <tr><td>{{ virtual_environment.name }}</td></tr>
+    {% for market, segments in virtual_environments.items %}
+      <tr><td>{{ market }}</td></tr>
+      {%for segment, ves in segments.items %}
+        <tr><td></td><td>{{ segment }}</td></tr>
+          {% for virtual_environment in ves %}
+            <tr id="{{ virtual_environment.name }}">
+              <td></td><td></td>
+              <td>{{ virtual_environment.site }}</td>
+              <td>{{ virtual_environment. }}</td>
+            </tr>
+          {% endfor %}
+      {% endfor %}
     {% endfor %}
       </tbody>
   </table>
