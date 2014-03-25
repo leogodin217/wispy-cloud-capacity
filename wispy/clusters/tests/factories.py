@@ -1,11 +1,14 @@
 import factory
 
-from clusters.models import VirtualEnvironment
+#from clusters.models import VirtualEnvironment
+from clusters import models
 
 
-class VirtualEnvironmentFactory(factory.Factory):
+class VirtualEnvironmentFactory(factory.DjangoModelFactory):
 
-    FACTORY_FOR = VirtualEnvironment
+    FACTORY_FOR = models.VirtualEnvironment
+
+    #id = factory.Sequence(lambda n: n, int)
     market = factory.sequence(lambda n: 'market {0}'.format(n))
     site = factory.sequence(lambda n: 'site {0}'.format(n))
     segment = factory.sequence(lambda n: 'segment {0}'.format(n))
