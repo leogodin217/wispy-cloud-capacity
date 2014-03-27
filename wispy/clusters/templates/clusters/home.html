@@ -17,8 +17,15 @@
               <td>{{ virtual_environment.application_layer }}</td>
               <td>{{ virtual_environment.pipe}}
               <td>{{ virtual_environment.notes }}</td>
-
             </tr>
+            {% for cluster in virtual_environment.cluster_set.all %}
+              <tr id="{{cluser.name}}">
+                <td></td><td></td><td></td>
+                <td>{{ cluster.name }}</td>
+                <td>{{ cluster.status }}</td>
+                <td>{{ cluster.notes }}</td>
+              </tr>
+            {% endfor %}
           {% endfor %}
       {% endfor %}
     {% endfor %}

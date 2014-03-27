@@ -17,3 +17,13 @@ class VirtualEnvironmentFactory(factory.DjangoModelFactory):
     pipe = factory.sequence(lambda n: 'pipe {0}'.format(n))
     notes = factory.sequence(lambda n: 'notes {0}'.format(n))
     status = factory.sequence(lambda n: 'status {0}'.format(n))
+
+
+class ClusterFactory(factory.DjangoModelFactory):
+
+    FACTORY_FOR = models.Cluster
+
+    name = factory.sequence(lambda n: 'cluster {0}'.format(n))
+    status = factory.sequence(lambda n: 'cluster status {0}'.format(n))
+    notes = factory.sequence(lambda n: 'cluster notes {0}'.format(n))
+    virtual_environment = factory.SubFactory(VirtualEnvironmentFactory)

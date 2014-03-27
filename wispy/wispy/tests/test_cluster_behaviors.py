@@ -1,7 +1,7 @@
 from django_webtest import WebTest
 
-from clusters.models import VirtualEnvironment
 from clusters.tests.factories import VirtualEnvironmentFactory
+from clusters.tests.factories import ClusterFactory
 
 import sure
 
@@ -42,6 +42,33 @@ class TestHomePageBehavior(WebTest):
         response.mustcontain(ve2.name)
         response.mustcontain(ve3.name)
 
+    def test_virtual_environments_show_related_clusters(self):
+
+        """As a Capacity Manager ISBAT view clusters for a Virtual
+        Environment"""
+
+        """Given a virtual environment with three clusters exists"""
+        ve1 = VirtualEnvironmentFactory.create()
+        cluster1 = ClusterFactory.create(virtual_environment=ve1)
+        cluster2 = ClusterFactory.create(virtual_environment=ve1)
+        cluster3 = ClusterFactory.create(virtual_environment=ve1)
+
+        """When I visit the home page
+        """
+        response = self.app.get('/')
+
+        """Then I should see all of the clusters
+        """
+        response.mustcontain(cluster1.name)
+        response.mustcontain(cluster1.status)
+        response.mustcontain(cluster1.notes)
+        response.mustcontain(cluster2.name)
+        response.mustcontain(cluster2.status)
+        response.mustcontain(cluster2.notes)
+        response.mustcontain(cluster3.name)
+        response.mustcontain(cluster3.status)
+        response.mustcontain(cluster3.notes)
+
 
 class TestClusterBehavior(WebTest):
 
@@ -61,11 +88,7 @@ class TestClusterBehavior(WebTest):
 
         "Given a Cluster exists"
         ve1 = VirtualEnvironmentFactory.create()
-        cluster = ve1.cluster_set.create(
-            name="cluster1",
-            status="closed",
-            notes="These are some notes for the cluster"
-        )
+        cluster = ClusterFactory.create(virtual_environment=ve1)
 
         "When I view the cluster"
         page = self.app.get('/clusters/%s/' % cluster.id)
