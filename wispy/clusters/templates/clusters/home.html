@@ -1,26 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-  <table>
+  <table class=".table" border="1">
     <caption>Virtual Environments</caption>
-    <thead>
-      <tr><th>Name</th></tr>
-    </thead>
     <tbody>
     {% for market, segments in virtual_environments.items %}
-      <tr><td>{{ market }}</td></tr>
+      <tr><th colspan="6">{{ market }}</th></tr>
       {%for segment, ves in segments.items %}
-        <tr><td></td><td>{{ segment }}</td></tr>
+        <tr><th colspan="6">{{ segment }}</th></tr>
+        <tr><th>Site</th><th>App Layer</th><th>Pipe</th><th>Notes</th>
           {% for virtual_environment in ves %}
             <tr id="{{ virtual_environment.name }}">
-              <td></td><td></td>
               <td><a href="{{ virtual_environment.get_absolute_url }}">{{ virtual_environment.site }}</a></td>
-              <td>{{ virtual_environment.application_layer }}</td>
+              <td>{{ virtual_environmen.application_layer }}</td>
               <td>{{ virtual_environment.pipe}}
               <td>{{ virtual_environment.notes }}</td>
             </tr>
+            <tr>
+              <th></th><th>Cluster</th><th>Status</th><th>Notes</th>
+            </tr>
             {% for cluster in virtual_environment.cluster_set.all %}
               <tr id="{{cluser.name}}">
-                <td></td><td></td><td></td>
+                <td></td>
                 <td>{{ cluster.name }}</td>
                 <td>{{ cluster.status }}</td>
                 <td>{{ cluster.notes }}</td>
