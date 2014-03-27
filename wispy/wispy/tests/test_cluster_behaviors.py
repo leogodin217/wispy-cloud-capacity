@@ -1,6 +1,7 @@
 from django_webtest import WebTest
 
 from clusters.models import VirtualEnvironment
+from clusters.tests.factories import VirtualEnvironmentFactory
 
 import sure
 
@@ -27,9 +28,9 @@ class TestHomePageBehavior(WebTest):
         """
 
         "Given three Virtual Environments exist."
-        ve1 = VirtualEnvironment.objects.create(name="ve1")
-        ve2 = VirtualEnvironment.objects.create(name="ve2")
-        ve3 = VirtualEnvironment.objects.create(name="ve3")
+        ve1 = VirtualEnvironmentFactory.create()
+        ve2 = VirtualEnvironmentFactory.create()
+        ve3 = VirtualEnvironmentFactory.create()
 
         "When I visit the home page"
 
@@ -59,16 +60,7 @@ class TestClusterBehavior(WebTest):
         """
 
         "Given a Cluster exists"
-        ve1 = VirtualEnvironment.objects.create(
-            name="ve1",
-            market="market1",
-            site="site1",
-            segment="segment1",
-            application_layer="application layer 1",
-            pipe="pipe1",
-            notes="notes1",
-            status="status1"
-        )
+        ve1 = VirtualEnvironmentFactory.create()
         cluster = ve1.cluster_set.create(
             name="cluster1",
             status="closed",
@@ -102,16 +94,7 @@ class TestVirtualEnvironmentBehavior(WebTest):
         """
 
         "Given a Virtual Environment exists."
-        ve1 = VirtualEnvironment.objects.create(
-            name="ve1",
-            market="market1",
-            site="site1",
-            segment="segment1",
-            application_layer="application layer 1",
-            pipe="pipe1",
-            notes="notes1",
-            status="status1"
-        )
+        ve1 = VirtualEnvironmentFactory.create()
 
         "When I view a Virtual Environment"
         virtual_environment_id = ve1.id
